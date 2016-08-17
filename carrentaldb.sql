@@ -86,27 +86,6 @@ INSERT INTO `rentals` (`id`, `car-id`, `client-id`, `date-from`, `date-to`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
---
-
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `last_login` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `name`, `last_login`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$1$Dtqyvz7/$wZSaZbfHgn0UbLlVi1HHp0', 'Admin', '2015-12-27 11:30:55', '2015-12-25 10:35:16', '2015-12-25 10:35:16');
-
---
 -- Indexes for dumped tables
 --
 
@@ -128,11 +107,6 @@ ALTER TABLE `client`
 ALTER TABLE `rentals`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`), ADD KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -154,10 +128,6 @@ ALTER TABLE `client`
 ALTER TABLE `rentals`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

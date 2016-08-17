@@ -30,12 +30,8 @@ class Rentals_model extends CI_Model {
     public function rentals_check($car, $client, $from, $to) {
         return $this->db->select('*')
                         ->from('rentals')
-                        ->where("(`date-from` BETWEEN '2016-08-12' AND '2016-08-14')")
-                        ->where('date-from <=', "$to")
-                        ->where('date-to >=', "$from")
-                        ->where('date-to <=', "$to")
-                        ->where('car-id =', "$car")
-                        ->or_where('client-id =', "$client")
+                        ->where("(`date-from` BETWEEN '$from' AND '$to')")
+                        ->where("(car-id = $car OR client-id = $client)")
                         ->get()
                         ->result();
     }
