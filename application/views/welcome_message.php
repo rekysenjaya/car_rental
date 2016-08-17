@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<title>Car Rental API</title>
 
 	<style type="text/css">
 
@@ -67,14 +67,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-<div id="container">
-	<h1>Welcome to Car Rental API</h1>
+	<div id="container">
+		<h1>Welcome to Car Rental API</h1>
 
-	<div id="body">
-		<p></p>
+		<div id="body">
+			<p></p>
 
 
-</div>
+		</div>
 
-</body>
-</html>
+	</body>
+	</html>

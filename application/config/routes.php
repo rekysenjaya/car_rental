@@ -51,19 +51,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
-$route['cars']['get']           = 'cars';
-$route['cars']['post']           = 'cars';
-$route['cars/(:num)']['put']           = 'cars/$1';
+$route['cars']['get'] = 'cars';
+$route['cars']['post'] = 'cars';
+$route['cars/(:num)']['put'] = 'cars/$1';
 $route['cars/(:num)']['delete'] = 'cars/$1';
 
-$route['rentals']['get']           = 'rentals';
-$route['rentals']['post']           = 'rentals';
-$route['rentals/(:num)']['put']           = 'rentals/$1';
+$route['rentals']['get'] = 'rentals';
+$route['rentals']['post'] = 'rentals';
+$route['rentals/(:num)']['put'] = 'rentals/$1';
 $route['rentals/(:num)']['delete'] = 'rentals/$1';
 
-$route['client']['get']           = 'client';
-$route['client']['post']           = 'client';
-$route['client/(:num)']['put']           = 'client/$1';
+$route['client']['get'] = 'client';
+$route['client']['post'] = 'client';
+$route['client/(:num)']['put'] = 'client/$1';
 $route['client/(:num)']['delete'] = 'client/$1';
 
 $route['default_controller'] = 'welcome';
