@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Histories extends CI_Controller {
 
   public function car($id) {
+    $this->load->helper('json_output');
     $this->load->model('Cars');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
@@ -22,6 +23,7 @@ class Histories extends CI_Controller {
   }
 
   public function client($id) {
+    $this->load->helper('json_output');
     $this->load->model('Cars');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {

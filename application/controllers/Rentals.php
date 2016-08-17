@@ -9,6 +9,7 @@ class Rentals extends CI_Controller {
   }
 
   public function index($id = null) {
+    $this->load->helper('json_output');
     $this->load->model('Rentals_model');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {

@@ -9,6 +9,7 @@ class Cars extends CI_Controller {
   }
 
   public function index($id = null) {
+    $this->load->helper('json_output');
     $this->load->model('Cars');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
@@ -40,6 +41,7 @@ class Cars extends CI_Controller {
   }
 
   public function rented() {
+    $this->load->helper('json_output');
     $this->load->model('Histories');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {

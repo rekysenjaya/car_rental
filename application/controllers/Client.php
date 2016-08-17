@@ -9,6 +9,7 @@ class Client extends CI_Controller {
   }
 
   public function index($id = null) {
+    $this->load->helper('json_output');
     $this->load->model('Client');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
