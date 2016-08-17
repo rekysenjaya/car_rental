@@ -11,9 +11,21 @@ class Histories_model extends CI_Model {
         return $this->db->select('cars.brand, cars.type, cars.plate')
                         ->from('rentals')
                         ->join('cars', 'cars.id=rentals.car-id', 'left')
-                        ->where("rentals.date-from between $date and ADDDATE('$date', INTERVAL 3 DAY)")
+                        ->where("rentals.`date-from` <= str_to_date('$date','%Y-%m-%d') AND rentals.`date-to` >= str_to_date('$date','%Y-%m-%d')")
                         ->get()
                         ->result();
+    }
+
+
+    /* Available Car */
+
+    public function histories_free_car($date) {
+        $query = $this->db->query("SELECT brand, type, plate FROM cars WHERE id NOT IN (SELECT `cars`.`id`
+                                    FROM `rentals`
+                                    LEFT JOIN `cars` ON `cars`.`id`=`rentals`.`car-id`
+                                    WHERE rentals.`date-from` <= str_to_date('$date','%Y-%m-%d') and rentals.`date-to` >= str_to_date('$date','%Y-%m-%d'))");
+
+        return $query->result();
     }
 
     /* Car */

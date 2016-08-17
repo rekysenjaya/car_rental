@@ -53,8 +53,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['cars']['get'] = 'cars';
 $route['cars']['post'] = 'cars';
-$route['cars/(:num)']['put'] = 'cars/$1';
-$route['cars/(:num)']['delete'] = 'cars/$1';
+$route['cars/(:any)']['put'] = 'cars/$1';
+$route['cars/(:any)']['delete'] = 'cars/$1';
+
+$route['cars/rented']['get'] = 'cars/rented';
 
 $route['rentals']['get'] = 'rentals';
 $route['rentals']['post'] = 'rentals';
