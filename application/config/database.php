@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'carrentaldb',
+	'hostname' => 'server25.000webhost.com',
+	'username' => 'a6222678_carrent',
+	'password' => 'Reky1993',
+	'database' => 'a6222678_carrent',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
