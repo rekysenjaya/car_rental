@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Client extends CI_Model {
+class Client_model extends CI_Model {
 
     /* Client Crud */
 

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Cars extends CI_Model {
+class Cars_model extends CI_Model {
 
     /* Cars Crud */
 

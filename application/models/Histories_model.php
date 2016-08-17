@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Histories extends CI_Model {
+class Histories_model extends CI_Model {
 
     /* Histories */
     /* Rented Car */
