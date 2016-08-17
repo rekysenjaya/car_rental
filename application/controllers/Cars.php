@@ -9,9 +9,10 @@ class Cars extends CI_Controller {
   }
 
   public function index($id = null) {
+    $this->load->model('Cars');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
-      $resp = $this->MyModel->cars_all_data();
+      $resp = $this->Cars->cars_all_data();
       json_output(200, $resp);
     } elseif ($method == 'POST') {
       $params = json_decode(file_get_contents('php://input'), TRUE);
@@ -19,7 +20,8 @@ class Cars extends CI_Controller {
         $respStatus = 400;
         $resp = array('status' => 400, 'message' => 'Brand, Type & Plate can\'t empty');
       } else {
-        $resp = $this->MyModel->cars_create_data($params);
+        $respStatus = 200;
+        $resp = $this->Cars->cars_create_data($params);
       }
       json_output($respStatus, $resp);
     } elseif ($method == 'PUT') {
@@ -28,16 +30,17 @@ class Cars extends CI_Controller {
         $respStatus = 400;
         $resp = array('status' => 400, 'message' => 'Brand, Type & Plate can\'t empty');
       } else {
-        $resp = $this->MyModel->cars_update_data($id, $params);
+        $resp = $this->Cars->cars_update_data($id, $params);
       }
     } elseif ($method == 'DELETE') {
-      $resp = $this->MyModel->cars_delete_data($id);
+      $resp = $this->Cars->cars_delete_data($id);
     } else {
       json_output(400, array('status' => 400, 'message' => 'Bad request.'));
     }
   }
 
   public function rented() {
+    $this->load->model('Histories');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
       $params = $_GET['date'];
@@ -45,7 +48,7 @@ class Cars extends CI_Controller {
       preg_match_all('/\{([^}]+)\}/', $params, $matches);
       $string = $matches[1][0];
       $date = DateTime::createFromFormat("d-m-Y", $string);
-      $resp = $this->MyModel->histories_rented_car($date->format("Y-m-d"));
+      $resp = $this->Histories->histories_rented_car($date->format("Y-m-d"));
       json_output(200, array('date' => $matches[1][0], 'rented_cars' => $resp));
     } else {
       json_output(400, array('status' => 400, 'message' => 'Bad request.'));

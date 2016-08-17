@@ -9,9 +9,10 @@ class Rentals extends CI_Controller {
   }
 
   public function index($id = null) {
+    $this->load->model('Rentals_model');
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'GET') {
-      $resp = $this->MyModel->rentals_all_data();
+      $resp = $this->Rentals_model->rentals_all_data();
       json_output(200, $resp);
     } elseif ($method == 'POST') {
       $params = json_decode(file_get_contents('php://input'), TRUE);
@@ -22,7 +23,7 @@ class Rentals extends CI_Controller {
         $respStatus = 400;
         $resp = array('status' => 400, 'message' => 'Max rent 3 day.');
       } else {
-        $resp = $this->MyModel->rentals_check($params['car-id'], $params['client-id'], $params['date-from'], $params['date-to']);
+        $resp = $this->Rentals_model->rentals_check($params['car-id'], $params['client-id'], $params['date-from'], $params['date-to']);
         if ($resp != null) {
           $respStatus = 400;
           $resp = array('status' => 400, 'message' => 'Cars on rent.');
@@ -31,7 +32,8 @@ class Rentals extends CI_Controller {
             $respStatus = 400;
             $resp = array('status' => 400, 'message' => 'Car id & Client id can\'t empty');
           } else {
-            $resp = $this->MyModel->rentals_create_data($params);
+            $respStatus = 200;
+            $resp = $this->Rentals_model->rentals_create_data($params);
           }
         }
       }
@@ -42,10 +44,10 @@ class Rentals extends CI_Controller {
         $respStatus = 400;
         $resp = array('status' => 400, 'message' => 'Car id & Client id can\'t empty');
       } else {
-        $resp = $this->MyModel->rentals_update_data($id, $params);
+        $resp = $this->Rentals_model->rentals_update_data($id, $params);
       }
     } elseif ($method == 'DELETE') {
-      $resp = $this->MyModel->rentals_delete_data($id);
+      $resp = $this->Rentals_model->rentals_delete_data($id);
     } else {
       json_output(400, array('status' => 400, 'message' => 'Bad request.'));
     }
