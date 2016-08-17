@@ -4,27 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Rentals extends CI_Controller {
 
-    public function __construct() {
-        parent::__construct();
-    }
+    function _remap($param){
+        $this->index($param);
+    }  
 
-    public function index() {
+    public function index($id = null) {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
-            $check_auth_client = $this->MyModel->check_auth_client();
-            if ($check_auth_client == true) {
-                $response = $this->MyModel->auth();
-                if ($response['status'] == 200) {
-                    $resp = $this->MyModel->rentals_all_data();
-                    json_output($response['status'], $resp);
-                }
-            }
+            $resp = $this->MyModel->rentals_all_data();
+            json_output(200, $resp);
         } elseif ($method == 'POST') {
-            $check_auth_client = $this->MyModel->check_auth_client();
-            if ($check_auth_client == true) {
-                $response = $this->MyModel->auth();
-                $respStatus = $response['status'];
-                if ($response['status'] == 200) {
                     $params = json_decode(file_get_contents('php://input'), TRUE);
                     $day = $params['date-from'];
                     $pDate = strtotime("$day + 3 day");
@@ -47,39 +36,7 @@ class Rentals extends CI_Controller {
                         }
                     }
                     json_output($respStatus, $resp);
-                }
-            }
-        } else {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
-        }
-    }
-
-    public function detail($id) {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method != 'GET' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE) {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
-        } else {
-            $check_auth_client = $this->MyModel->check_auth_client();
-            if ($check_auth_client == true) {
-                $response = $this->MyModel->auth();
-                if ($response['status'] == 200) {
-                    $resp = $this->MyModel->rentals_detail_data($id);
-                    json_output($response['status'], $resp);
-                }
-            }
-        }
-    }
-
-    public function update($id) {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method != 'PUT' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE) {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
-        } else {
-            $check_auth_client = $this->MyModel->check_auth_client();
-            if ($check_auth_client == true) {
-                $response = $this->MyModel->auth();
-                $respStatus = $response['status'];
-                if ($response['status'] == 200) {
+        } elseif ($method == 'PUT') {
                     $params = json_decode(file_get_contents('php://input'), TRUE);
                     if ($params['car-id'] == "" || $params['client-id'] == "") {
                         $respStatus = 400;
@@ -87,25 +44,10 @@ class Rentals extends CI_Controller {
                     } else {
                         $resp = $this->MyModel->rentals_update_data($id, $params);
                     }
-//                    json_output($respStatus, $resp);
-                }
-            }
-        }
-    }
-
-    public function delete($id) {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method != 'DELETE' || $this->uri->segment(3) == '' || is_numeric($this->uri->segment(3)) == FALSE) {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
-        } else {
-            $check_auth_client = $this->MyModel->check_auth_client();
-            if ($check_auth_client == true) {
-                $response = $this->MyModel->auth();
-                if ($response['status'] == 200) {
+        } elseif ($method == 'DELETE') {
                     $resp = $this->MyModel->rentals_delete_data($id);
-//                    json_output($response['status'], $resp);
-                }
-            }
+        } else {
+            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
