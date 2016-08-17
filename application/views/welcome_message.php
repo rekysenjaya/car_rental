@@ -98,7 +98,7 @@ Type JSON(application/json)
    "plate":"D 1234 HND"
 }</pre>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -129,25 +129,26 @@ Type JSON(application/json)
 
 <h4>/cars GET</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
-<pre>[
-{
-"brand":"Honda",
-"type":"civic",
-"year":2011,
-"color:"Black",
-"plate":"D 1234 HND"
-},
-{
-"brand":"Toyota",
-"type":"Yaris",
-"year":2015,
-"color:"Orange",
-"plate":"B 1234 HND"
-}
+<pre>
+[
+  {
+	"brand":"Honda",
+	"type":"civic",
+	"year":2011,
+	"color:"Black",
+	"plate":"D 1234 HND"
+  },
+  {
+	"brand":"Toyota",
+	"type":"Yaris",
+	"year":2015,
+	"color:"Orange",
+	"plate":"B 1234 HND"
+  }
 ]</pre>
 
 
@@ -167,7 +168,7 @@ Type JSON(application/json)
 }
 </pre>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -197,26 +198,27 @@ Type JSON(application/json)
 
 <h4>/clients GET</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
-<pre>[
-    {
-        "id": 1, 
-        "name": "Ahmad Nurwanto",
-        "gender": "male"
-    },
-    {
-        "id": 2,
-        "name": "Rizki",
-        "gender": "male"
-    },
-    {
-        "id": 3,
-        "name": "Ihsan",
-        "gender": "male"
-    }
+<pre>
+[
+  {
+      "id": 1, 
+      "name": "Ahmad Nurwanto",
+      "gender": "male"
+  },
+  {
+      "id": 2,
+      "name": "Rizki",
+      "gender": "male"
+  },
+  {
+      "id": 3,
+      "name": "Ihsan",
+      "gender": "male"
+  }
 ]</pre>
 
 
@@ -239,7 +241,7 @@ Type JSON(application/json)
   "date-to":"2016-08-17"
 }</pre>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -270,27 +272,27 @@ Type JSON(application/json)
 
 <h4>/rentals GET</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 <pre>
 [
-	{
-		"name":"Ahmad",
-		"brand":"Honda",
-		"type":"Civic",
-		"plate":"D 1234 HND",
-		"date-from:"2016-08-17",
-		"date-to:"2016-08-19"
-	},
-	{
-		"name":"Rizki",
-		"brand":"Toyota",
-		"type":"Yaris",
-		"plate":"D 4444 TYT",
-		"date-from:"2016-08-17",
-		"date-to:"2016-08-19"
-	}
+  {
+	"name":"Ahmad",
+	"brand":"Honda",
+	"type":"Civic",
+	"plate":"D 1234 HND",
+	"date-from:"2016-08-17",
+	"date-to:"2016-08-19"
+  },
+  {
+	"name":"Rizki",
+	"brand":"Toyota",
+	"type":"Yaris",
+	"plate":"D 4444 TYT",
+	"date-from:"2016-08-17",
+	"date-to:"2016-08-19"
+  }
 ]
 </pre>
 
@@ -299,7 +301,7 @@ Type JSON
 
 <h4>/histories/client/{id} GET</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -324,7 +326,7 @@ Type JSON
 <h4>/histories/car/{id}?month={mm-yyyy}</h4>
 
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -359,7 +361,7 @@ Type JSON
 
 <h4>cars/rented?date={dd-mm-yyyy}</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
@@ -386,7 +388,7 @@ Type JSON
 
 <h4>cars/free?date={dd-mm-yyyy}</h4>
 
-Response Body
+Response Body 200 (application/json)
 
 Type JSON
 
