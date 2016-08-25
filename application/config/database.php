@@ -72,18 +72,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $active_group = 'default';
-$active_record = TRUE;
-
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'postgres';
-$db['default']['password'] = 'root';
-$db['default']['database'] = 'petani';
-$db['default']['dbdriver'] = "postgre";
-$db['default']['port'] = 5432;
-$db['default']['dbprefix'] = "";
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = FALSE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = "";
-$db['default']['char_set'] = "utf8";
-$db['default']['dbcollat'] = "utf8_general_ci";
+$query_builder = TRUE;
+$db['default'] = array(
+	'dsn'	=> '',
+//	'hostname' => 'localhost',
+	'hostname' => 'ec2-54-225-81-90.compute-1.amazonaws.com',
+	'port' => 5432,
+	'username' => 'sxhzxqisfllatx',
+	'password' => 'gkRGUzHbNUiIC7bAywQ9qiUxhs',
+	'database' => 'd9opvaiikla699',
+	'dbdriver' => 'postgre',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
