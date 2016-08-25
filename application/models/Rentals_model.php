@@ -7,21 +7,21 @@ class Rentals_model extends CI_Model {
     /* Rentals Crud */
 
     public function rentals_all_data() {
-        return $this->db->select('rentals.date-from, rentals.date-to, cars.brand, cars.type, cars.plate, client.name')
+        return $this->db->select('rentals."date-from", rentals."date-to", cars.brand, cars.type, cars.plate, client.name')
                         ->from('rentals')
-                        ->join('cars', 'cars.id=rentals.car-id', 'left')
-                        ->join('client', 'client.id=rentals.client-id', 'left')
+                        ->join('cars', 'cars.id=rentals."car-id"', 'left')
+                        ->join('client', 'client.id=rentals."client-id"', 'left')
                         ->order_by('rentals.id', 'desc')
                         ->get()
                         ->result();
     }
 
     public function rentals_detail_data($id) {
-        return $this->db->select('rentals.date-from, rentals.date-to, cars.brand, cars.type, cars.plate, client.name')
+        return $this->db->select('rentals."date-from", rentals."date-to", cars.brand, cars.type, cars.plate, client.name')
                         ->from('rentals')
                         ->where('rentals.id', $id)
-                        ->join('cars', 'cars.id=rentals.car-id', 'left')
-                        ->join('client', 'client.id=rentals.client-id', 'left')
+                        ->join('cars', 'cars.id=rentals."car-id"', 'left')
+                        ->join('client', 'client.id=rentals."client-id"', 'left')
                         ->order_by('rentals.id', 'desc')
                         ->get()
                         ->row();
@@ -30,8 +30,8 @@ class Rentals_model extends CI_Model {
     public function rentals_check($car, $client, $from, $to) {
         return $this->db->select('*')
                         ->from('rentals')
-                        ->where("(`date-from` BETWEEN '$from' AND '$to')")
-                        ->where("(car-id = $car OR client-id = $client)")
+                        ->where('("date-from" BETWEEN '.$from.' AND '.$to.')')
+                        ->where('("car-id" = '.$car.' OR "client-id" = '.$client.')')
                         ->get()
                         ->result();
     }

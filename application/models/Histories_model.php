@@ -8,22 +8,24 @@ class Histories_model extends CI_Model {
     /* Rented Car */
 
     public function histories_rented_car($date) {
-        return $this->db->select('cars.brand, cars.type, cars.plate')
-                        ->from('rentals')
-                        ->join('cars', 'cars.id=rentals.car-id', 'left')
-                        ->where("rentals.`date-from` <= str_to_date('$date','%Y-%m-%d') AND rentals.`date-to` >= str_to_date('$date','%Y-%m-%d')")
-                        ->get()
-                        ->result();
+        $d = "'$date', 'yyyy-mm-dd'";
+        $query = $this->db->query('select cars.brand, cars.type, cars.plate 
+                      from rentals 
+                        left join cars on cars.id=rentals."car-id" 
+                        where  rentals."date-from" <= to_date('.$d.') AND rentals."date-to" >= to_date('.$d.')');
+
+        return $query->result();
     }
 
 
     /* Available Car */
 
     public function histories_free_car($date) {
-        $query = $this->db->query("SELECT brand, type, plate FROM cars WHERE id NOT IN (SELECT `cars`.`id`
-                                    FROM `rentals`
-                                    LEFT JOIN `cars` ON `cars`.`id`=`rentals`.`car-id`
-                                    WHERE rentals.`date-from` <= str_to_date('$date','%Y-%m-%d') and rentals.`date-to` >= str_to_date('$date','%Y-%m-%d'))");
+        $d = "'$date', 'yyyy-mm-dd'";
+        $query = $this->db->query('SELECT brand, type, plate FROM cars WHERE id NOT IN (SELECT cars.id
+                                    FROM rentals
+                                    LEFT JOIN cars ON cars.id=rentals."car-id"
+                                    WHERE rentals."date-from" <= to_date('.$d.') and rentals."date-to" >= to_date('.$d.'))');
 
         return $query->result();
     }
@@ -31,10 +33,10 @@ class Histories_model extends CI_Model {
     /* Car */
 
     public function histories_car_data($id, $year, $month) {
-        return $this->db->select('client.name as rent-by, rentals.date-from, rentals.date-to')
+        return $this->db->select('client.name as "rent-by", rentals."date-from", rentals."date-to"')
                         ->from('rentals')
-                        ->join('client', 'client.id=rentals.client-id', 'left')
-                        ->where("YEAR(rentals.`date-from`) = $year AND MONTH(rentals.`date-from`) = $month AND rentals.car-id = $id")
+                        ->join('client', 'client.id=rentals."client-id"', 'left')
+                        ->where('YEAR(rentals."date-from") = '.$year.' AND MONTH(rentals."date-from") = '.$month.' AND rentals."car-id" = '.$id)
                         ->get()
                         ->result();
     }
@@ -50,11 +52,11 @@ class Histories_model extends CI_Model {
     /* Client */
 
     public function histories_client_data($id) {
-        return $this->db->select('cars.brand, cars.type, cars.plate, rentals.date-from, rentals.date-to')
+        return $this->db->select('cars.brand, cars.type, cars.plate, rentals."date-from", rentals."date-to"')
                         ->from('rentals')
-                        ->join('cars', 'cars.id=rentals.car-id', 'left')
-                        ->join('client', 'client.id=rentals.client-id', 'left')
-                        ->where("rentals.client-id = $id")
+                        ->join('cars', 'cars.id=rentals."car-id"', 'left')
+                        ->join('client', 'client.id=rentals."client-id"', 'left')
+                        ->where('rentals."client-id" = '.$id)
                         ->get()
                         ->result();
     }
