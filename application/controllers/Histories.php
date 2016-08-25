@@ -10,7 +10,7 @@ class Histories extends CI_Controller {
     }
 
     public function car($id) {
-        $this->load->helper('json_output');
+        
         $this->load->model('Histories_model');
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
@@ -28,7 +28,7 @@ class Histories extends CI_Controller {
     }
 
     public function client($id) {
-        $this->load->helper('json_output');
+        
         $this->load->model('Histories_model');
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
@@ -38,6 +38,13 @@ class Histories extends CI_Controller {
         } else {
             json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
+    }
+
+    function json_output($statusHeader, $response) {
+        $ci = & get_instance();
+        $ci->output->set_content_type('application/json');
+        $ci->output->set_status_header($statusHeader);
+        $ci->output->set_output(json_encode($response));
     }
 
 }
