@@ -9,6 +9,13 @@ class Cars extends CI_Controller {
         $this->output->enable_profiler(FALSE);
     }
 
+    function json_output($statusHeader, $response) {
+        $ci = & get_instance();
+        $ci->output->set_content_type('application/json');
+        $ci->output->set_status_header($statusHeader);
+        $ci->output->set_output(json_encode($response));
+    }
+
     function _remap($param) {
         if (ctype_digit($param) == true || $param == 'index') {
             $this->index($param);
@@ -27,7 +34,7 @@ class Cars extends CI_Controller {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
             $resp = $this->Cars_model->cars_all_data();
-            json_output(200, $resp);
+            $this->json_output(200, $resp);
         } elseif ($method == 'POST') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['brand'] == "" || $params['type'] == "" || $params['plate'] == "") {
@@ -37,7 +44,7 @@ class Cars extends CI_Controller {
                 $respStatus = 200;
                 $resp = $this->Cars_model->cars_create_data($params);
             }
-            json_output($respStatus, $resp);
+            $this->json_output($respStatus, $resp);
         } elseif ($method == 'PUT') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['brand'] == "" || $params['type'] == "" || $params['plate'] == "") {
@@ -49,7 +56,7 @@ class Cars extends CI_Controller {
         } elseif ($method == 'DELETE') {
             $resp = $this->Cars_model->cars_delete_data($id);
         } else {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
@@ -64,9 +71,9 @@ class Cars extends CI_Controller {
             $string = $matches[1][0];
             $date = DateTime::createFromFormat("d-m-Y", $string);
             $resp = $this->Histories_model->histories_rented_car($date->format("Y-m-d"));
-            json_output(200, array('date' => $matches[1][0], 'rented_cars' => $resp));
+            $this->json_output(200, array('date' => $matches[1][0], 'rented_cars' => $resp));
         } else {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
@@ -81,17 +88,10 @@ class Cars extends CI_Controller {
             $string = $matches[1][0];
             $date = DateTime::createFromFormat("d-m-Y", $string);
             $resp = $this->Histories_model->histories_free_car($date->format("Y-m-d"));
-            json_output(200, array('date' => $matches[1][0], 'free_cars' => $resp));
+            $this->json_output(200, array('date' => $matches[1][0], 'free_cars' => $resp));
         } else {
-            json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
-    }
-
-    function json_output($statusHeader, $response) {
-        $ci = & get_instance();
-        $ci->output->set_content_type('application/json');
-        $ci->output->set_status_header($statusHeader);
-        $ci->output->set_output(json_encode($response));
     }
 
 }
