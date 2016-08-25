@@ -3,7 +3,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Rentals_model extends CI_Model {
-
     /* Rentals Crud */
 
     public function rentals_all_data() {
@@ -28,12 +27,13 @@ class Rentals_model extends CI_Model {
     }
 
     public function rentals_check($car, $client, $from, $to) {
-        return $this->db->select('*')
-                        ->from('rentals')
-                        ->where('("date-from" BETWEEN '.$from.' AND '.$to.')')
-                        ->where('("car-id" = '.$car.' OR "client-id" = '.$client.')')
-                        ->get()
-                        ->result();
+        $data = "'$from' AND '$to'";
+        $query = $this->db->query('SELECT *
+                FROM "rentals"
+                WHERE ("date-from" BETWEEN ' . $data . ')
+                AND ("car-id" = ' . $car . ' OR "client-id" = ' . $client . ')');
+
+        return $query->result();
     }
 
     public function rentals_create_data($data) {
