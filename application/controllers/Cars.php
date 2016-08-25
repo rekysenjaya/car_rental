@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Cars extends CI_Controller {
 
   function _remap($param){
-    if (ctype_digit($param)==true) {
+    if (ctype_digit($param)==true || $param=='index') {
       $this->index($param);
     }else{
       if ($param[0].$param[1].$param[2].$param[3]=='free') {
