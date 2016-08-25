@@ -7,14 +7,7 @@ class Cars extends CI_Controller {
     function __contruct() {
         parent::__construct();
         $this->output->enable_profiler(FALSE);
-    }
-
-    function json_output($statusHeader, $response) {
-        $ci = & get_instance();
-        $ci->output->set_content_type('application/json');
-        $ci->output->set_status_header($statusHeader);
-        $ci->output->set_output(json_encode($response));
-    }
+    }    
 
     function _remap($param) {
         if (ctype_digit($param) == true || $param == 'index') {
@@ -29,12 +22,11 @@ class Cars extends CI_Controller {
     }
 
     public function index($id = null) {
-    
         $this->load->model('Cars_model');
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
             $resp = $this->Cars_model->cars_all_data();
-            $this->json_output(200, $resp);
+            $this->Json_output_model->json_output(200, $resp);
         } elseif ($method == 'POST') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['brand'] == "" || $params['type'] == "" || $params['plate'] == "") {
@@ -44,7 +36,7 @@ class Cars extends CI_Controller {
                 $respStatus = 200;
                 $resp = $this->Cars_model->cars_create_data($params);
             }
-            $this->json_output($respStatus, $resp);
+            $this->Json_output_model->json_output($respStatus, $resp);
         } elseif ($method == 'PUT') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['brand'] == "" || $params['type'] == "" || $params['plate'] == "") {
@@ -56,12 +48,11 @@ class Cars extends CI_Controller {
         } elseif ($method == 'DELETE') {
             $resp = $this->Cars_model->cars_delete_data($id);
         } else {
-            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->Json_output_model->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
     public function rented() {
-    
         $this->load->model('Histories_model');
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
@@ -71,14 +62,13 @@ class Cars extends CI_Controller {
             $string = $matches[1][0];
             $date = DateTime::createFromFormat("d-m-Y", $string);
             $resp = $this->Histories_model->histories_rented_car($date->format("Y-m-d"));
-            $this->json_output(200, array('date' => $matches[1][0], 'rented_cars' => $resp));
+            $this->Json_output_model->json_output(200, array('date' => $matches[1][0], 'rented_cars' => $resp));
         } else {
-            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->Json_output_model->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
     public function free() {
-    
         $this->load->model('Histories_model');
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
@@ -88,9 +78,9 @@ class Cars extends CI_Controller {
             $string = $matches[1][0];
             $date = DateTime::createFromFormat("d-m-Y", $string);
             $resp = $this->Histories_model->histories_free_car($date->format("Y-m-d"));
-            $this->json_output(200, array('date' => $matches[1][0], 'free_cars' => $resp));
+            $this->Json_output_model->json_output(200, array('date' => $matches[1][0], 'free_cars' => $resp));
         } else {
-            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->Json_output_model->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 

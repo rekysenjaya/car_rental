@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Json_output_helper extends CI_Controller {
+class Json_output_model extends CI_Model {
 
     function json_output($statusHeader, $response) {
         $ci = & get_instance();

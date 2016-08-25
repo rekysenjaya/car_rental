@@ -9,13 +9,6 @@ class Client extends CI_Controller {
         $this->output->enable_profiler(FALSE);
     }
 
-    function json_output($statusHeader, $response) {
-        $ci = & get_instance();
-        $ci->output->set_content_type('application/json');
-        $ci->output->set_status_header($statusHeader);
-        $ci->output->set_output(json_encode($response));
-    }
-
     function _remap($param) {
         $this->index($param);
     }
@@ -26,7 +19,7 @@ class Client extends CI_Controller {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
             $resp = $this->Client_model->client_all_data();
-            $this->json_output(200, $resp);
+            $this->Json_output_model->json_output(200, $resp);
         } elseif ($method == 'POST') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['name'] == "" || $params['gender'] == "") {
@@ -36,7 +29,7 @@ class Client extends CI_Controller {
                 $respStatus = 200;
                 $resp = $this->Client_model->client_create_data($params);
             }
-            $this->json_output($respStatus, $resp);
+            $this->Json_output_model->json_output($respStatus, $resp);
         } elseif ($method == 'PUT') {
             $params = json_decode(file_get_contents('php://input'), TRUE);
             if ($params['name'] == "" || $params['gender'] == "") {
@@ -48,7 +41,7 @@ class Client extends CI_Controller {
         } elseif ($method == 'DELETE') {
             $resp = $this->Client_model->client_delete_data($id);
         } else {
-            $this->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
+            $this->Json_output_model->json_output(400, array('status' => 400, 'message' => 'Bad request.'));
         }
     }
 
