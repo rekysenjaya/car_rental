@@ -22,4 +22,17 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+	
+	public function testAPI(){
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == 'GET') {
+			echo 'get berhasil';
+        } elseif ($method == 'POST') {
+			echo 'POST berhasil';
+        } elseif ($method == 'PUT') {
+			echo 'PUT berhasil';
+        } elseif ($method == 'DELETE') {
+			echo 'DELETE berhasil';
+		}
+	}
 }
