@@ -17,7 +17,10 @@ class Client extends CI_Controller {
         
         $this->load->model('Client_model');
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {
+        if ($method == 'GET' && $id != NULL && $id != 'index') {
+            $resp = $this->Client_model->client_detail_data($id);
+            $this->Json_output_model->json_output(200, $resp);
+        } elseif ($method == 'GET' && $id == 'index') {
             $resp = $this->Client_model->client_all_data();
             $this->Json_output_model->json_output(200, $resp);
         } elseif ($method == 'POST') {

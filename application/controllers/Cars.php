@@ -7,7 +7,7 @@ class Cars extends CI_Controller {
     function __contruct() {
         parent::__construct();
         $this->output->enable_profiler(FALSE);
-    }    
+    }
 
     function _remap($param) {
         if (ctype_digit($param) == true || $param == 'index') {
@@ -24,7 +24,10 @@ class Cars extends CI_Controller {
     public function index($id = null) {
         $this->load->model('Cars_model');
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {
+        if ($method == 'GET' && $id != NULL && $id != 'index') {
+            $resp = $this->Cars_model->cars_detail_data($id);
+            $this->Json_output_model->json_output(200, $resp);
+        } elseif ($method == 'GET' && $id == 'index') {
             $resp = $this->Cars_model->cars_all_data();
             $this->Json_output_model->json_output(200, $resp);
         } elseif ($method == 'POST') {
