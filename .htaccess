@@ -6,6 +6,13 @@ RewriteEngine On
 # RewriteCond %{HTTP_HOST} (.+)$ [NC]
 # RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
 
+Header set Access-Control-Allow-Origin *
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+Header always set Access-Control-Allow-Headers "*"
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?/$1 [L]
